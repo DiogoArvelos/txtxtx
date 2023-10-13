@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 import paho.mqtt.client as mqtt
 import time
+import datetime
 
 app = Flask(__name__)
 
@@ -24,10 +25,9 @@ def on_message(client, userdata, msg):
     mqtt_data_2 = mqtt_data[34:-28]
     mqtt_data_3 = mqtt_data[59:-4]
 
-    timestamp = int(time.time())  
-    month = int(time.strftime("%m", time.localtime(timestamp)))  
-    day = int(time.strftime("%d", time.localtime(timestamp)))  
-    hour = int(time.strftime("%H", time.localtime(timestamp)))  
+    timestamp = int(time.time()) - 3 * 3600  # Calculate timestamp for 3 hours ago
+    three_hours_ago = datetime.datetime.fromtimestamp(timestamp)
+    month, day, hour = three_hours_ago.month, three_hours_ago.day, three_hours_ago.hour
 
     for metric, value in enumerate([mqtt_data_1, mqtt_data_2, mqtt_data_3], start=1):
         if month not in mqtt_values_monthly:
@@ -101,7 +101,6 @@ def calcular_media_dia(month, day, metric):
         return sum(mqtt_values[month][day][metric]) / len(mqtt_values[month][day][metric])
     else:
         return 0.0 
-
 
 def calcular_media_diaria(day, hour, metric):
     global mqtt_values_daily
