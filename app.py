@@ -20,9 +20,9 @@ def on_connect(client, userdata, flags, rc):
 def on_message(client, userdata, msg):
     global mqtt_values_monthly, mqtt_values_daily, mqtt_values_hourly
     mqtt_data = msg.payload.decode()
-    mqtt_data_1 = mqtt_data[13:-102]
-    mqtt_data_2 = mqtt_data[34:-82]
-    mqtt_data_3 = mqtt_data[59:-58]
+    mqtt_data_1 = mqtt_data[13:-49]
+    mqtt_data_2 = mqtt_data[34:-28]
+    mqtt_data_3 = mqtt_data[59:-4]
 
     timestamp = int(time.time())  
     month = int(time.strftime("%m", time.localtime(timestamp)))  
