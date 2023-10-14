@@ -158,7 +158,7 @@ def selecionar_mes():
             medias_por_dia[day] = {
                 "temp": calcular_media_dia(selected_month, day, 1),
                 "umid": calcular_media_dia(selected_month, day, 2),
-                "solo": calcular_media_dia(selected_month, day, 3),
+                "solo": 2*2,
             }
 
         return render_template("selecionar_mes.html", selected_month=selected_month, medias_por_dia=medias_por_dia)
