@@ -166,4 +166,4 @@ def selecionar_mes():
     return render_template("selecionar_mes_input.html")
 
 if __name__ == "__main__":
-    app.run()
+    app.run(debug=True)
